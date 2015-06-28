@@ -7,15 +7,17 @@ public class Product {
 	private String name, provider;
 	private GregorianCalendar validity;
 	private float price;
-	private static AtomicInteger nextId;
+	private static AtomicInteger nextId = new AtomicInteger();
 	private int id;
+	private int quantity;
 	
-	public Product(String name, String provider, float price, int day, int month, int year) {
+	public Product(String name, String provider, float price, int day, int month, int year, int quantity) {
 		this.name = name;
 		this.provider = provider;
 		this.price = price;
 		this.validity = new GregorianCalendar(year, month, day, 0, 0, 0);
 		this.id = nextId.incrementAndGet();
+		this.setQuantity(quantity);
 	}
 
 	public String getName() {
@@ -52,5 +54,13 @@ public class Product {
 
 	public int getId() {
 		return id;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 }

@@ -57,7 +57,7 @@ public class StoreServer {
 	
 	public static void main(String[] args) {
 		if(args.length != 1) {
-			System.err.println("Usage: java Server <port number>");
+			System.err.println("Usage: java StoreServer <port number>");
 			System.exit(1);
 		}
 		
