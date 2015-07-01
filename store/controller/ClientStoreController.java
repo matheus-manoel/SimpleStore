@@ -1,8 +1,8 @@
 package store.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
+
 
 import helper.ErrorConstants;
 import store.model.*;
@@ -82,11 +82,10 @@ public class ClientStoreController {
 					errorCode = ErrorConstants.QUANTITY_NOT_ENOUGH;
 				} else {
 					//creating the purchase
-					GregorianCalendar today = new GregorianCalendar();
-					today.setTime(new Date());
+					Calendar today = Calendar.getInstance();
 					Purchase purchase = new Purchase(buyerId, productId, quantity, product.getPrice(), product.getPrice()*quantity,
-								today.get(GregorianCalendar.DAY_OF_MONTH), today.get(GregorianCalendar.MONTH), 
-								today.get(GregorianCalendar.YEAR));
+								today.get(Calendar.DAY_OF_MONTH), today.get(Calendar.MONTH)+1, 
+								today.get(Calendar.YEAR));
 					
 					//taking out the quantity of bought products
 					product.setQuantity(product.getQuantity()-quantity);

@@ -44,8 +44,9 @@ public class ManagerConnection implements Runnable {
 					int month = commandBlock.getInt("month");
 					int year = commandBlock.getInt("year");
 					int quantity = commandBlock.getInt("quantity");
+					int productId = commandBlock.getInt("product_id");
 					
-					errorCode = this.storeController.addProduct(name, provider, price, day, month, year, quantity);
+					errorCode = this.storeController.addProduct(productId, name, provider, price, day, month, year, quantity);
 					output.writeInt(errorCode);
 					
 				} else if(commandBlock.get("id").equals("show_products")) {
@@ -72,6 +73,14 @@ public class ManagerConnection implements Runnable {
 					errorCode = this.storeController.setProductQuantity(id, quantity);
 					
 					output.writeInt(errorCode);
+					
+				} else if(commandBlock.get("id").equals("generate_pdf")) {
+					String dayOrMonth = commandBlock.getString("dayOrMonth");
+					int day = commandBlock.getInt("day");
+					int month = commandBlock.getInt("month");
+					int year = commandBlock.getInt("year");
+
+					this.storeController.generatePDF(dayOrMonth, day, month, year);
 				}
 				
 			}

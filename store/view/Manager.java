@@ -38,7 +38,7 @@ public class Manager {
 	public synchronized int addProduct() {
 		String name, provider;
 		float price;
-		int day, month, year, quantity;
+		int day, month, year, quantity, prodId;
 		int codeError = -100;
 		JSONObject commandBlock = new JSONObject();
 		
@@ -47,6 +47,10 @@ public class Manager {
 		
 		System.out.print("Nome: ");
 		name = sysIn.nextLine();
+		
+		System.out.print("ID (inteiro): ");
+		prodId = sysIn.nextInt();
+		sysIn.nextLine();
 		
 		System.out.print("Fornecedor: ");
 		provider = sysIn.nextLine();
@@ -77,7 +81,9 @@ public class Manager {
 			commandBlock.put("day", day);
 			commandBlock.put("month", month);
 			commandBlock.put("year", year);
+			commandBlock.put("prod_id", prodId);
 			commandBlock.put("quantity", quantity);
+			commandBlock.put("product_id", prodId);
 		} catch (JSONException e1) {
 			System.err.println("Erro no momento de criar o commandBlock em addProduct de Manager.");
 		}
@@ -179,6 +185,63 @@ public class Manager {
 		return errorCode;
 	}
 	
+	public void generatePDF() {
+		int option = -1, day=0, month, year;
+		JSONObject commandBlock = new JSONObject();
+		try {
+			commandBlock.put("id", "generate_pdf");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println();
+		System.out.println("Geracao de PDF");
+		System.out.println();
+		
+		while(option != 1 && option != 2) {
+			System.out.println("1. por dia.");
+			System.out.println("2. pro mes.");
+			
+			option = sysIn.nextInt();
+			sysIn.nextLine();
+		}
+		
+		if(option == 1) {
+			
+			try {
+				commandBlock.put("dayOrMonth", "day");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.print("Dia: ");
+			day = sysIn.nextInt();
+			
+		} else {
+			try {
+				commandBlock.put("dayOrMonth", "month");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.print("Mes: ");
+		month = sysIn.nextInt();
+		
+		System.out.print("Ano: ");
+		year = sysIn.nextInt();
+		
+		try {
+			commandBlock.put("day", day);
+			commandBlock.put("month", month);
+			commandBlock.put("year", year);
+			
+			output.writeUTF(commandBlock.toString());
+		} catch (JSONException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void menu() {
 		int option = -100;
 		int errorCode;
@@ -191,6 +254,7 @@ public class Manager {
         	System.out.println("1. Cadastrar produto.");
         	System.out.println("2. Listar produtos.");
         	System.out.println("3. Alterar quantidade de um produto.");
+        	System.out.println("4. Gerar relatorio em PDF.");
         	System.out.println("0. Sair\n");
         	
             option = sysIn.nextInt();
@@ -205,6 +269,8 @@ public class Manager {
         			System.out.println("ERRO: Ja existe um produto com esse email!\n");
         		else if(errorCode == ErrorConstants.PRICE_LESS_0)
         			System.out.println("ERRO: O preco nao pode ser menor que 0!\n");
+        		else if(errorCode == ErrorConstants.SAME_ID)
+        			System.out.println("ERRO: Ja existe um produto com este ID!\n");
         	
         	} else if(option == 2) {
         		this.ShowProducts();
@@ -219,6 +285,8 @@ public class Manager {
         		else if(errorCode == ErrorConstants.QUANTITY_LESS_0)
         			System.out.println("ERRO: A quantidade nao pode ser menor que 0!\n");
         	
+        	} else if(option == 4) {
+        		this.generatePDF();
         	} else if(option == 0) {
         		break;
         	}

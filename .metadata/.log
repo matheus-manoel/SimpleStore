@@ -1,0 +1,13 @@
+!SESSION 2015-07-01 15:05:14.705 -----------------------------------------------
+eclipse.buildId=4.5.0.I20150603-2000
+java.version=1.8.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-07-01 15:05:24.870
+!MESSAGE Unable to acquire PluginConverter service during generation for: /home/matheus/eclipse/plugins/net.sf.fjep.fatjar_0.0.31.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-07-01 15:05:24.895
+!MESSAGE Unable to acquire PluginConverter service during generation for: /home/matheus/eclipse/plugins/net.sf.fjep.fatjar_0.0.31.jar.
