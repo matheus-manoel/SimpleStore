@@ -6,13 +6,18 @@ Simple Store Simulator
 Made for our Object-oriented programming class (https://docs.google.com/document/d/1hZco9xbu2Q6F3rICbgalWUufmuWPvREZUmELk1MDTDs/edit).
 
 ## Usage
-1) java StoreServer $port
+We were not able to make a jar. 
 
-2) java Manager $ip $port
+Import the project in Eclipse and execute the following files with their arguments:
 
-3) java Client $ip $port
+1) StoreServer $port
 
-4) you can keep opening how many Clients you want.
+2) Manager $ip $port
+
+3) Client $ip $port
+
+Obs.: Run as many Clients as you want.
+
 
 ## Contributors
 Matheus Manoel, [Gabriel Luiz](https://github.com/gabrielludy) and Matheus Macedo.
@@ -30,3 +35,8 @@ In this project we use both Singleton and MVC patterns. The Store class is neede
 system, so only one instance of it is necessary. The MVC architectural pattern gave us more flexibility and made our code
 really easy to follow: the view package has only the needed interfaces; the model package has the database classes, like
 Product, User and Store; the controller package works like a bridge between the other two.
+
+### Extra points
+Pdf report.
+
+Used design patterns and described it above.
