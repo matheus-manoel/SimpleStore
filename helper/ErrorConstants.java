@@ -1,4 +1,4 @@
-package Helper;
+package helper;
 
 
 public final class ErrorConstants {
@@ -16,6 +16,7 @@ public final class ErrorConstants {
 	  public static final int SAME_EMAIL = -4;
 	  public static final int SAME_ID = -5;
 	  public static final int QUANTITY_LESS_0 = 0;
+	  public static final int WRONG_PASSWORD = -6;
 
 	  private ErrorConstants(){
 	    throw new AssertionError();

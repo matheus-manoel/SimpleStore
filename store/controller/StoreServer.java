@@ -11,12 +11,14 @@ import java.util.ArrayList;
 public class StoreServer {
 	private boolean serverOn;
 	private ServerSocket ss;
-	private ManagerStoreController storeController;
+	private ManagerStoreController managerStoreController;
+	private ClientStoreController clientStoreController;
 	private ArrayList<ClientConnection> clientConnections;
 	
 	public StoreServer(int port) {
 		this.serverOn = true;
-		this.storeController = new ManagerStoreController();
+		this.managerStoreController = new ManagerStoreController();
+		this.clientStoreController = new ClientStoreController();
 		this.clientConnections = new ArrayList<ClientConnection>();
 		
 		try {
@@ -37,15 +39,15 @@ public class StoreServer {
 		} catch (IOException e) {
 			System.out.println("Error while accepting serverClientSocket connection.");
 		}
-		ManagerConnection serverClientConnection = new ManagerConnection(serverClientSocket, storeController);
+		ManagerConnection serverClientConnection = new ManagerConnection(serverClientSocket, managerStoreController);
 		Thread serverClientThread = new Thread(serverClientConnection);
 		serverClientThread.start();
 		
-		/*while(serverOn) {
+		while(serverOn) {
 			try {
 				Socket clientSocket = this.ss.accept();
 				
-				ClientConnection clieCon = new ClientConnection(clientSocket, storeController);
+				ClientConnection clieCon = new ClientConnection(clientSocket, clientStoreController);
 				
 				this.clientConnections.add(clieCon);
 				
@@ -54,7 +56,7 @@ public class StoreServer {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}*/
+		}
 	}
 	
 	public static void main(String[] args) {

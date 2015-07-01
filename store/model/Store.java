@@ -25,6 +25,8 @@ public class Store {
 	
 	public void addUser(User user) {
 		instance.users.add(user);
+		for(User us : instance.users)
+			System.out.println(us.getId());
 	}
 
 	public ArrayList<Product> getProducts() {

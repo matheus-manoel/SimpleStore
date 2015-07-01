@@ -2,7 +2,7 @@ package store.controller;
 
 import java.util.ArrayList;
 
-import Helper.ErrorConstants;
+import helper.ErrorConstants;
 import store.model.*;
 
 public class ManagerStoreController {
