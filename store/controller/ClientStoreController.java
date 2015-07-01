@@ -1,6 +1,8 @@
 package store.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import helper.ErrorConstants;
 import store.model.*;
@@ -16,6 +18,7 @@ public class ClientStoreController {
 	 * SUCCESS -> user added.
 	 * SAME_NAME -> there already is a user with this name.
 	 * SAME_ID -> there already is a user with this id. 
+	 * SAME_EMAIL -> there already is a user with this email. 
 	 */
 	public int registerUser(String name, String email, String id, String password,
 			String address, String telephoneNumber) {
@@ -50,6 +53,41 @@ public class ClientStoreController {
 					errorCode = ErrorConstants.SUCCESS;
 				} else {
 					errorCode = ErrorConstants.WRONG_PASSWORD;
+				}
+				
+			}
+		}
+		
+		return errorCode;
+	}
+	
+	/*	Returns:
+	 * SUCCESS -> purchase made.
+	 * NOT_FOUND -> product with this id wasnt found.
+	 * QUANTITY_NOT_ENOUGH -> not enough units of this product to complete the purchase. 
+	 */
+	public int buyProduct(String buyerId, int productId, int quantity) {
+		int errorCode = ErrorConstants.NOT_FOUND;
+		ArrayList<Product> products = this.store.getProducts();
+		
+		for(Product product : products) {
+			if(product.getId() == productId) {
+				
+				if(product.getQuantity() < quantity) {
+					errorCode = ErrorConstants.QUANTITY_NOT_ENOUGH;
+				} else {
+					//creating the purchase
+					GregorianCalendar today = new GregorianCalendar();
+					today.setTime(new Date());
+					Purchase purchase = new Purchase(buyerId, productId, quantity, product.getPrice(), product.getPrice()*quantity,
+								today.get(GregorianCalendar.DAY_OF_MONTH), today.get(GregorianCalendar.MONTH), 
+								today.get(GregorianCalendar.YEAR));
+					
+					//taking out the quantity of bought products
+					product.setQuantity(product.getQuantity()-quantity);
+					
+					this.store.addPurchase(purchase);
+					errorCode = ErrorConstants.SUCCESS;
 				}
 				
 			}

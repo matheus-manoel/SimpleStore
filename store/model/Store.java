@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Store {
 	private ArrayList<Product> products;
 	private ArrayList<User> users;
+	private ArrayList<Purchase> purchases;
 	private static Store instance;
 	
 	private Store() {
 		this.products = new ArrayList<Product>();
 		this.users = new ArrayList<User>();
+		this.purchases = new ArrayList<Purchase>();
 	}
 	
 	public static Store getInstance() {
@@ -23,10 +25,12 @@ public class Store {
 		instance.products.add(product);
 	}
 	
+	public void addPurchase(Purchase purchase) {
+		instance.purchases.add(purchase);
+	}
+	
 	public void addUser(User user) {
 		instance.users.add(user);
-		for(User us : instance.users)
-			System.out.println(us.getId());
 	}
 
 	public ArrayList<Product> getProducts() {
@@ -35,5 +39,9 @@ public class Store {
 
 	public ArrayList<User> getUsers() {
 		return instance.users;
+	}
+	
+	public ArrayList<Purchase> getPurchases() {
+		return instance.purchases;
 	}
 }

@@ -54,4 +54,10 @@ public class User {
 	public void setTelephoneNumber(String telephoneNumber) {
 		this.telephoneNumber = telephoneNumber;
 	}
+
+	@Override
+	public String toString() {
+		return name + ", " + email + ", " + id + ", " + password + ", "
+				+ address + ", " + telephoneNumber;
+	}
 }

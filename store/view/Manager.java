@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.Scanner;
 import org.json.*;
 
+import helper.ErrorConstants;
+
 
 public class Manager {
 	private DataOutputStream output;
@@ -97,6 +99,7 @@ public class Manager {
 	}
 
 	/* Description of the show products command block:
+	 * id: "show_products"
 	 * fields: none 
 	 */	
 	public void ShowProducts() {
@@ -136,6 +139,11 @@ public class Manager {
 		}
 	}
 	
+	/* Description of the show products command block:
+	 * id: "set_quantity"
+	 * fields: int prod_id
+	 * 		   int quantity
+	 */	
 	public int setProductQuantity() {
 		int errorCode = -100;
 		JSONObject commandBlock = new JSONObject();
@@ -171,6 +179,52 @@ public class Manager {
 		return errorCode;
 	}
 	
+	public void menu() {
+		int option = -100;
+		int errorCode;
+		
+		while(option != 0){
+			System.out.println();
+			System.out.println();
+			System.out.println("\tMENU do Administrador");
+			System.out.println();
+        	System.out.println("1. Cadastrar produto.");
+        	System.out.println("2. Listar produtos.");
+        	System.out.println("3. Alterar quantidade de um produto.");
+        	System.out.println("0. Sair\n");
+        	
+            option = sysIn.nextInt();
+			sysIn.nextLine();
+        	
+        	if(option == 1) {
+        		errorCode = this.addProduct();
+        		
+        		if(errorCode == ErrorConstants.SUCCESS)
+        			System.out.println("Produto adicionado com sucesso!\n");
+        		else if(errorCode == ErrorConstants.SAME_NAME)
+        			System.out.println("ERRO: Ja existe um produto com esse email!\n");
+        		else if(errorCode == ErrorConstants.PRICE_LESS_0)
+        			System.out.println("ERRO: O preco nao pode ser menor que 0!\n");
+        	
+        	} else if(option == 2) {
+        		this.ShowProducts();
+        		
+        	} else if(option == 3) {
+        		errorCode = this.setProductQuantity();
+        		
+        		if(errorCode == ErrorConstants.SUCCESS)
+        			System.out.println("Quantidade alterada com sucesso!\n");
+        		else if(errorCode == ErrorConstants.NOT_FOUND)
+        			System.out.println("ERRO: Nenhum produto com esse ID foi encontrado!\n");
+        		else if(errorCode == ErrorConstants.QUANTITY_LESS_0)
+        			System.out.println("ERRO: A quantidade nao pode ser menor que 0!\n");
+        	
+        	} else if(option == 0) {
+        		break;
+        	}
+		}
+	}
+	
 	public static void main(String[] args) {
 		Socket managerSocket = null;
 		
@@ -187,9 +241,6 @@ public class Manager {
 		
 		
 		Manager manager = new Manager(managerSocket);
-		manager.addProduct();
-		manager.ShowProducts();
-		manager.setProductQuantity();
-		manager.ShowProducts();
+		manager.menu();
 	}
 }

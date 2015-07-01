@@ -17,6 +17,8 @@ public final class ErrorConstants {
 	  public static final int SAME_ID = -5;
 	  public static final int QUANTITY_LESS_0 = 0;
 	  public static final int WRONG_PASSWORD = -6;
+	  public static final int NOT_LOGGED = -7;
+	  public static final int QUANTITY_NOT_ENOUGH = -8;
 
 	  private ErrorConstants(){
 	    throw new AssertionError();
