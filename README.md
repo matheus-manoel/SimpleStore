@@ -17,8 +17,8 @@ Made for our Object-oriented programming class (https://docs.google.com/document
 ## Contributors
 Matheus Manoel, [Gabriel Luiz](https://github.com/gabrielludy) and Matheus Macedo.
 
-### How does it work?
-StoreServer creates a ServerSocket and waits for the Manager to connect. The Mannager app has the power to add products, list products and set a new quantity to a chosen product. After the Manager connection, the server waits for Client connections. The Client app has the power to register new users, login, list products and buy them.
+### How does it work and what does it do?
+StoreServer creates a ServerSocket and waits for the Manager to connect. The Mannager app has the power to add products, list products, set a new quantity to a chosen product and generate dynamic pdf reports. After the Manager connection, the server waits for Client connections. The Client app has the power to register new users, login, list products and buy them.
 
 All the Clients and the Manager have their thread that listens to the requests (JSON was used here), parse this requests and send to the Controller classes (ManagerStoreController and ClientStoreController) to execute. The controller classes return any possible errors to the threads, and then this error finally arrives in the Client/Manager class, where the request came from.
 
