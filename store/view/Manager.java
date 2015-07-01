@@ -35,7 +35,7 @@ public class Manager {
 	 * 		   int year
 	 * 		   int quantity
 	 */
-	public int addProduct() {
+	public synchronized int addProduct() {
 		String name, provider;
 		float price;
 		int day, month, year, quantity;
@@ -102,7 +102,7 @@ public class Manager {
 	 * id: "show_products"
 	 * fields: none 
 	 */	
-	public void ShowProducts() {
+	public synchronized void ShowProducts() {
 		JSONObject commandBlock = new JSONObject();
 		JSONObject productBlock;
 		String productBlockString;
@@ -144,7 +144,7 @@ public class Manager {
 	 * fields: int prod_id
 	 * 		   int quantity
 	 */	
-	public int setProductQuantity() {
+	public synchronized int setProductQuantity() {
 		int errorCode = -100;
 		JSONObject commandBlock = new JSONObject();
 		int id, quantity;

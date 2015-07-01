@@ -22,7 +22,7 @@ public class ClientStoreController {
 	 * SAME_ID -> there already is a user with this id. 
 	 * SAME_EMAIL -> there already is a user with this email. 
 	 */
-	public int registerUser(String name, String email, String id, String password,
+	public synchronized int registerUser(String name, String email, String id, String password,
 			String address, String telephoneNumber) {
 		int errorCode = ErrorConstants.SUCCESS;	
 		ArrayList<User> users = this.store.getUsers();
@@ -71,7 +71,7 @@ public class ClientStoreController {
 	 * NOT_FOUND -> product with this id wasnt found.
 	 * QUANTITY_NOT_ENOUGH -> not enough units of this product to complete the purchase. 
 	 */
-	public int buyProduct(String buyerId, int productId, int quantity) {
+	public synchronized int buyProduct(String buyerId, int productId, int quantity) {
 		int errorCode = ErrorConstants.NOT_FOUND;
 		ArrayList<Product> products = this.store.getProducts();
 		
