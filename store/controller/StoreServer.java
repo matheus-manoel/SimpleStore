@@ -11,12 +11,12 @@ import java.util.ArrayList;
 public class StoreServer {
 	private boolean serverOn;
 	private ServerSocket ss;
-	private StoreController storeController;
+	private ManagerStoreController storeController;
 	private ArrayList<ClientConnection> clientConnections;
 	
 	public StoreServer(int port) {
 		this.serverOn = true;
-		this.storeController = new StoreController();
+		this.storeController = new ManagerStoreController();
 		this.clientConnections = new ArrayList<ClientConnection>();
 		
 		try {
@@ -29,13 +29,15 @@ public class StoreServer {
 	
 	public void run() {
 		//connecting with a ServerClient
+		System.out.println("Server iniciado. Esperando comexão do Administrador.");
 		Socket serverClientSocket = null;
 		try {
 			serverClientSocket = this.ss.accept();
+			System.out.println("Administrador conectado.");
 		} catch (IOException e) {
 			System.out.println("Error while accepting serverClientSocket connection.");
 		}
-		ServerClientConnection serverClientConnection = new ServerClientConnection(serverClientSocket, storeController);
+		ManagerConnection serverClientConnection = new ManagerConnection(serverClientSocket, storeController);
 		Thread serverClientThread = new Thread(serverClientConnection);
 		serverClientThread.start();
 		

@@ -1,4 +1,5 @@
-package store.controller;
+package Helper;
+
 
 public final class ErrorConstants {
 	  public static final boolean PASSES = true;
@@ -14,6 +15,7 @@ public final class ErrorConstants {
 	  public static final int PRICE_LESS_0 = -3;
 	  public static final int SAME_EMAIL = -4;
 	  public static final int SAME_ID = -5;
+	  public static final int QUANTITY_LESS_0 = 0;
 
 	  private ErrorConstants(){
 	    throw new AssertionError();
