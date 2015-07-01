@@ -7,9 +7,14 @@ import store.model.*;
 
 public class ManagerStoreController {
 	private Store store;
+	private CSVStoreManager csvStoreManager;
 	
-	public ManagerStoreController() {
+	public ManagerStoreController(CSVStoreManager csvStoreManager) {
 		this.store = Store.getInstance();
+		this.csvStoreManager = csvStoreManager;
+		this.store.setProducts(csvStoreManager.loadProducts());
+		this.store.setUsers(csvStoreManager.loadUsers());
+		this.store.setPurchases(csvStoreManager.loadPurchases());
 	}
 	
 	/*	Returns:
@@ -25,30 +30,11 @@ public class ManagerStoreController {
 			errorCode = ErrorConstants.SAME_NAME;
 		else if(price < 0)
 			errorCode = ErrorConstants.PRICE_LESS_0;
-		else 
-			this.store.addProduct(new Product(name, provider, price, day, month, year, quantity));
-		
-		return errorCode;
-	}
-	
-	/*	Returns:
-	 * SUCCESS -> user added.
-	 * SAME_NAME -> there already is a user with this name.
-	 * SAME_ID -> there already is a user with this id. 
-	 */
-	public int addUser(String name, String email, String id, String password,
-			String address, String telephoneNumber) {
-		int errorCode = ErrorConstants.SUCCESS;	
-		ArrayList<User> users = this.store.getUsers();
-		
-		if(users.stream().anyMatch(u -> u.getName().equals(name)))
-			errorCode = ErrorConstants.SAME_NAME;
-		else if(users.stream().anyMatch(u -> u.getEmail().equals(email)))
-			errorCode = ErrorConstants.SAME_EMAIL;
-		else if(users.stream().anyMatch(u -> u.getId().equals(id)))
-			errorCode = ErrorConstants.SAME_ID;
-		else
-			this.store.addUser(new User(name, email, id, password, address, telephoneNumber));
+		else {
+			Product product = new Product(name, provider, price, day, month, year, quantity);
+			this.store.addProduct(product);
+			this.csvStoreManager.addProduct(product);
+		}
 		
 		return errorCode;
 	}
@@ -70,6 +56,9 @@ public class ManagerStoreController {
 				if(product.getId() == id) {
 					product.setQuantity(quantity);
 					errorCode = ErrorConstants.SUCCESS;
+					csvStoreManager.clearFile("product");
+					for(Product prod : products)
+						csvStoreManager.addProduct(prod);
 					break;
 				}
 			}

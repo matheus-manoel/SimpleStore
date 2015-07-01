@@ -63,7 +63,7 @@ public class CSVStoreManager {
     public void clearFile(String fileId) {
         try {
             PrintWriter writer;
-            if(fileId.equals("book"))
+            if(fileId.equals("product"))
                 writer = new PrintWriter(productFile);
             else if(fileId.equals("user"))
                 writer = new PrintWriter(userFile);
@@ -148,7 +148,7 @@ public class CSVStoreManager {
 		
 		try{
 			
-			BufferedReader userBuffer = new BufferedReader(new FileReader(productFile));
+			BufferedReader userBuffer = new BufferedReader(new FileReader(userFile));
 			String line = userBuffer.readLine();
 
 			while(line != null){
@@ -173,7 +173,7 @@ public class CSVStoreManager {
 		
 		return users;
 	}
-	
+
 	public ArrayList<Purchase> loadPurchases(){
 		ArrayList<Purchase> purchases = new ArrayList<Purchase>();
 		String buyerId;
@@ -182,12 +182,12 @@ public class CSVStoreManager {
 		int day, month, year;
 		
 		try{
-			BufferedReader purchaseBuffer = new BufferedReader(new FileReader(productFile));
+			BufferedReader purchaseBuffer = new BufferedReader(new FileReader(purchaseFile));
 			String line = purchaseBuffer.readLine();
 
 			while(line != null){
 				String data[] = line.split(", ");
-			
+				
 				buyerId  = data[0];
 				productId = Integer.parseInt(data[1]);
 				quantity  = Integer.parseInt(data[2]);

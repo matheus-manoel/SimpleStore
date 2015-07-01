@@ -13,12 +13,14 @@ public class StoreServer {
 	private ServerSocket ss;
 	private ManagerStoreController managerStoreController;
 	private ClientStoreController clientStoreController;
+	private CSVStoreManager csvStoreManager;
 	private ArrayList<ClientConnection> clientConnections;
 	
 	public StoreServer(int port) {
 		this.serverOn = true;
-		this.managerStoreController = new ManagerStoreController();
-		this.clientStoreController = new ClientStoreController();
+		this.csvStoreManager = new CSVStoreManager("users.csv", "products.csv", "purchases.csv");
+		this.managerStoreController = new ManagerStoreController(csvStoreManager);
+		this.clientStoreController = new ClientStoreController(csvStoreManager);
 		this.clientConnections = new ArrayList<ClientConnection>();
 		
 		try {
@@ -68,33 +70,5 @@ public class StoreServer {
 		StoreServer storeServer = new StoreServer(Integer.parseInt(args[0]));
 		storeServer.run();
 		
-	/*	ServerSocket ss = null;
-		boolean serverOn = true;
-		
-		if(args.length != 1) {
-			System.err.println("Usage: java Server <port number>");
-			System.exit(1);
-		}
-		
-		try {
-			ss = new ServerSocket();
-		} catch(IOException ioe) { 
-            System.out.println("Could not create server socket on port 11111. Quitting."); 
-            System.exit(-1); 
-        } 
-		
-		while(serverOn) {
-			try {
-				Socket clientSocket = ss.accept();
-				
-				Connection con = new Connection(clientSocket);
-				
-				Thread thr = new Thread(con);
-				thr.start();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	*/	
 	}
 }

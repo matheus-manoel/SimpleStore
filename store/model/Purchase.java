@@ -18,8 +18,6 @@ public class Purchase {
 		this.unitaryPrice = unitaryPrice;
 		this.totalPrice = totalPrice;
 		this.date = new GregorianCalendar(year, month, day, 0, 0, 0);
-		
-		System.out.println(this.toString());
 	}
 
 	public int getQuantity() {

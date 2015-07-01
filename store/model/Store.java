@@ -33,6 +33,18 @@ public class Store {
 		instance.users.add(user);
 	}
 
+	public void setProducts(ArrayList<Product> products) {
+		this.products = products;
+	}
+
+	public void setUsers(ArrayList<User> users) {
+		this.users = users;
+	}
+
+	public void setPurchases(ArrayList<Purchase> purchases) {
+		this.purchases = purchases;
+	}
+
 	public ArrayList<Product> getProducts() {
 		return instance.products;
 	}

@@ -231,7 +231,7 @@ public class Client {
 		int errorCode;
 		
 		while(option != 0){
-			System.out.println("\tMENU");
+			System.out.println("\n\tMENU Inicial");
 			System.out.println();
         	System.out.println("1. Registrar!");
         	System.out.println("2. Login!");
@@ -246,28 +246,28 @@ public class Client {
         		if(errorCode == ErrorConstants.SUCCESS)
         			System.out.println("Cadastro realizado com sucesso!");
         		else if(errorCode == ErrorConstants.SAME_NAME)
-        			System.out.println("Ja existe um usuario cadastrado com esse email!");
+        			System.out.println("ERRO: Ja existe um usuario cadastrado com esse email!\n");
         		else if(errorCode == ErrorConstants.SAME_ID)
-        			System.out.println("Ja existe um usuario cadastrado com esse id!");
+        			System.out.println("ERRO: Ja existe um usuario cadastrado com esse id!\n");
         		else if(errorCode == ErrorConstants.SAME_EMAIL)
-        			System.out.println("Ja existe um usuario cadastrado com esse email!");
+        			System.out.println("ERRO: Ja existe um usuario cadastrado com esse email!\n");
         	
         	} else if(option == 2) {
         		errorCode = this.login();
         		
         		if(errorCode == ErrorConstants.NOT_FOUND)
-        			System.out.println("Nao foi encontrado nenhum usuario com este ID!");
+        			System.out.println("ERRO: Nao foi encontrado nenhum usuario com este ID!\n");
         		else if(errorCode == ErrorConstants.WRONG_PASSWORD)
-        			System.out.println("Senha errada!");
+        			System.out.println("ERRO: Senha errada!\n");
         		else if(errorCode == ErrorConstants.SUCCESS) {
-        			System.out.println("Login realizado com sucesso!");
+        			System.out.println("Login realizado com sucesso!\n");
         		
         			//menu dos logados
         			while(option != 0) {
-        				
+        				System.out.println("\tMENU do Cliente");
         	        	System.out.println("1. Listar produtos!");
         	        	System.out.println("2. Comprar produto!");
-        	        	System.out.println("3. Voltar a pagina inicial!");
+        	        	System.out.println("3. Voltar ao menu inicial!");
         	        	System.out.println("0. Sair");
         				
         	            option = sysIn.nextInt();
@@ -277,17 +277,17 @@ public class Client {
         					errorCode = this.ShowProducts();
         					
         					if(errorCode == ErrorConstants.NOT_LOGGED)
-        						System.out.println("Voce nao esta logado!");
+        						System.out.println("Voce nao esta logado!\n");
         				
         				} else if(option == 2) {
         					errorCode = this.buyProduct();
         					
         					if(errorCode == ErrorConstants.SUCCESS)
-        						System.out.println("Compra realizada com sucesso!");
+        						System.out.println("Compra realizada com sucesso!\n");
         					else if(errorCode == ErrorConstants.NOT_FOUND)
-        						System.out.println("Produto nao encontrado!");
+        						System.out.println("ERRO: Produto nao encontrado!\n");
         					else if(errorCode == ErrorConstants.QUANTITY_NOT_ENOUGH)
-        						System.out.println("Quantidade insuficiente para a compra.");
+        						System.out.println("ERRO: Quantidade insuficiente para a compra.\n");
         				} else if(option == 3) {
         					option = 10;
         					break;

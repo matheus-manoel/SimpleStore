@@ -9,9 +9,11 @@ import store.model.*;
 
 public class ClientStoreController {
 	private Store store;
+	private CSVStoreManager csvStoreManager;
 	
-	public ClientStoreController() {
+	public ClientStoreController(CSVStoreManager csvStoreManager) {
 		this.store = Store.getInstance();
+		this.csvStoreManager = csvStoreManager;
 	}
 	
 	/*	Returns:
@@ -31,9 +33,12 @@ public class ClientStoreController {
 			errorCode = ErrorConstants.SAME_EMAIL;
 		else if(users.stream().anyMatch(u -> u.getId().equals(id)))
 			errorCode = ErrorConstants.SAME_ID;
-		else
-			this.store.addUser(new User(name, email, id, password, address, telephoneNumber));
-		
+		else {
+			User user = new User(name, email, id, password, address, telephoneNumber);
+			this.store.addUser(user);
+			this.csvStoreManager.addUser(user);
+		}
+			
 		return errorCode;
 	}
 	
@@ -87,6 +92,7 @@ public class ClientStoreController {
 					product.setQuantity(product.getQuantity()-quantity);
 					
 					this.store.addPurchase(purchase);
+					this.csvStoreManager.addPurchase(purchase);
 					errorCode = ErrorConstants.SUCCESS;
 				}
 				
