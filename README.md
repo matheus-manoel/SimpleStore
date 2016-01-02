@@ -6,10 +6,6 @@ Simple Store Simulator
 Made for our Object-oriented programming class (https://docs.google.com/document/d/1hZco9xbu2Q6F3rICbgalWUufmuWPvREZUmELk1MDTDs/edit).
 
 ## Usage
-We were not able to make a jar. 
-
-Import the project in Eclipse and execute the following files with their arguments:
-
 1) StoreServer $port
 
 2) Manager $ip $port
