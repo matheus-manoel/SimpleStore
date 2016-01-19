@@ -1,6 +1,6 @@
 Simple Store Simulator
 ======
-**Simple Store Simulator** is a software that simulates a server/client store application implemented using the Singleton and MVC design pattern. 
+**Simple Store Simulator** is a server/client store (no payment methods implemented) application implemented using the Singleton and MVC design pattern. 
 
 #### Motivation
 Made for our Object-oriented programming class (https://docs.google.com/document/d/1hZco9xbu2Q6F3rICbgalWUufmuWPvREZUmELk1MDTDs/edit).
